@@ -122,7 +122,7 @@ sub execute {
             return 0;
         }
     }
-    
+
     my @rootfiles;
     find(
         sub { find_cb($this, '.*/root$', \@rootfiles) },
@@ -145,7 +145,7 @@ sub execute {
     );
 
     if (!@gfxbootfiles) {
-        my $msg = "No gfxboot.cfg file found! "
+        my $msg = "No gfxboot.cfg file found! $this, '.*/gfxboot\.cfg"
             . "This _MIGHT_ be ok for S/390. "
             . "Please verify <installation-images> package(s)";
         $this->logMsg("W", $msg);
@@ -267,7 +267,7 @@ sub updateInitRDNET {
 
     my @initrdfiles;
     find(
-        sub { find_cb($this, '.*/initrd$', \@initrdfiles) },
+        sub { find_cb($this, '.*/initrd.img$', \@initrdfiles) },
         $this->handler()->collect()->basedir()
     );
 
