@@ -136,7 +136,7 @@ sub execute {
         $this->handler()->collect()->basedir()
     );
 
-    #$this -> updateInitRDNET("./etc/linuxrc.d/10_repo", "defaultrepo=$repoloc\n");
+    $this -> updateInitRDNET("./etc/linuxrc.d/10_repo", "defaultrepo=$repoloc\n");
 
     my @gfxbootfiles;
     find(
@@ -145,7 +145,7 @@ sub execute {
     );
 
     if (!@gfxbootfiles) {
-        my $msg = "No gfxboot.cfg file found! $this, '.*/gfxboot\.cfg"
+        my $msg = "No gfxboot.cfg file found! "
             . "This _MIGHT_ be ok for S/390. "
             . "Please verify <installation-images> package(s)";
         $this->logMsg("W", $msg);
