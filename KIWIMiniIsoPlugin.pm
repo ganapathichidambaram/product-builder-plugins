@@ -136,7 +136,7 @@ sub execute {
         $this->handler()->collect()->basedir()
     );
 
-    $this -> updateInitRDNET("./etc/linuxrc.d/10_repo", "defaultrepo=$repoloc\n");
+    #$this -> updateInitRDNET("./etc/linuxrc.d/10_repo", "defaultrepo=$repoloc\n");
 
     my @gfxbootfiles;
     find(
