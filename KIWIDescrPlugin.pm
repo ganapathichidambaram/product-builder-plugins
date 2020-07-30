@@ -170,7 +170,7 @@ sub createRepositoryMetadata {
     $cmd .= " --excludes=boot/*/*.rpm";
     $cmd .= " --checksum=sha256";
     $cmd .= " -d";
-    #$cmd .= " -g repodata/comps-BaseOS.x86_64.xml";
+    $cmd .= " -g comps-BaseOS.xml";
     $cmd .= " --error-exit-val"; # is not working with old createrepo
     foreach my $repoid (split(/\s+/, $repoids)) {
         $cmd .= " --repo=\"$repoid\"";
@@ -203,6 +203,11 @@ sub createRepositoryMetadata {
         $this->logMsg("E", "Called <$cmd> exit status: <$status> output: $out");
         return 1;
     }
+    ## Removing comps group file from CD directory which we used to run createrepo
+    $cmd = "rm -f $masterpath/comps-BaseOS.xml ";
+    $this->logMsg("I", "Executing command <$cmd>");
+    $call = $this -> callCmd($cmd);
+
     $cmd = "$this->{m_rezip} $masterpath ";
     $this->logMsg("I", "Executing command <$cmd>");
     $call = $this -> callCmd($cmd);
