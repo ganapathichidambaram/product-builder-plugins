@@ -128,7 +128,7 @@ sub execute {
         sub { find_cb($this, '.*/root$', \@rootfiles) },
         $this->handler()->collect()->basedir()
     );
-    $this->removeRepoData();
+    #$this->removeRepoData();
 
     my @isolxfiles;
     find(
@@ -138,22 +138,22 @@ sub execute {
 
     $this -> updateInitRDNET("./etc/linuxrc.d/10_repo", "defaultrepo=$repoloc\n");
 
-    my @gfxbootfiles;
-    find(
-        sub { find_cb($this, '.*/gfxboot\.cfg$', \@gfxbootfiles) },
-        $this->handler()->collect()->basedir()
-    );
+    # my @gfxbootfiles;
+    # find(
+    #     sub { find_cb($this, '.*/gfxboot\.cfg$', \@gfxbootfiles) },
+    #     $this->handler()->collect()->basedir()
+    # );
 
-    if (!@gfxbootfiles) {
-        my $msg = "No gfxboot.cfg file found! "
-            . "This _MIGHT_ be ok for S/390. "
-            . "Please verify <installation-images> package(s)";
-        $this->logMsg("W", $msg);
-        return 0;
-    }
-    return $this -> updateGraphicsBootConfig (
-        \@gfxbootfiles, $repoloc, $srv, $path
-    );
+    # if (!@gfxbootfiles) {
+    #     my $msg = "No gfxboot.cfg file found! "
+    #         . "This _MIGHT_ be ok for S/390. "
+    #         . "Please verify <installation-images> package(s)";
+    #     $this->logMsg("W", $msg);
+    #     return 0;
+    # }
+    # return $this -> updateGraphicsBootConfig (
+    #     \@gfxbootfiles, $repoloc, $srv, $path
+    # );
 }
 
 sub removeRepoData {

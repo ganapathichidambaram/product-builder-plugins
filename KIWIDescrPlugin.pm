@@ -169,7 +169,8 @@ sub createRepositoryMetadata {
     $cmd .= " --excludes=boot/*.rpm";
     $cmd .= " --excludes=boot/*/*.rpm";
     $cmd .= " --checksum=sha256";
-    $cmd .= " --no-database";
+    $cmd .= " -d";
+    #$cmd .= " -g repodata/comps-BaseOS.x86_64.xml";
     $cmd .= " --error-exit-val"; # is not working with old createrepo
     foreach my $repoid (split(/\s+/, $repoids)) {
         $cmd .= " --repo=\"$repoid\"";

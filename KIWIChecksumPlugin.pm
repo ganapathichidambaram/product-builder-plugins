@@ -113,26 +113,26 @@ sub execute {
     my @targetmedia = $this->collect()->getMediaNumbers();
     my %targets;
     %targets = map { $_ => 1 } @targetmedia;
-    foreach my $cd(keys(%targets)) {
-        $this->logMsg("I", "Creating checksum file on medium <$cd>:");
-        my $dir = $this->collect()->basesubdirs()->{$cd};
-        $this->logMsg("I", "Creating checksum file on medium <$cd>: $dir");
-        chdir($dir);
-        find({wanted => \&add_checksum, no_chdir=>1}, "isolinux") if -d "isolinux";
-        find({wanted => \&add_checksum, no_chdir=>1}, "EFI")  if -d "EFI";
-        #find({wanted => \&add_checksum, no_chdir=>1}, "docu") if -d "docu";
-        #find({wanted => \&add_checksum, no_chdir=>1}, "media.1") if -d "media.1";
+    # foreach my $cd(keys(%targets)) {
+    #     $this->logMsg("I", "Creating checksum file on medium <$cd>:");
+    #     my $dir = $this->collect()->basesubdirs()->{$cd};
+    #     $this->logMsg("I", "Creating checksum file on medium <$cd>: $dir");
+    #     chdir($dir);
+    #     find({wanted => \&add_checksum, no_chdir=>1}, "isolinux") if -d "isolinux";
+    #     find({wanted => \&add_checksum, no_chdir=>1}, "EFI")  if -d "EFI";
+    #     #find({wanted => \&add_checksum, no_chdir=>1}, "docu") if -d "docu";
+    #     #find({wanted => \&add_checksum, no_chdir=>1}, "media.1") if -d "media.1";
 
-        if (-e "CHECKSUMS") {
-          my $cmd = "sign -d CHECKSUMS";
-          my $call = $this -> callCmd($cmd);
-          my $status = $call->[0];
-          my $out = join("\n",@{$call->[1]});
-          $this->logMsg("I",
-              "Called $cmd exit status: <$status> output: $out"
-          );
-        }
-    }
+    #     if (-e "CHECKSUMS") {
+    #       my $cmd = "sign -d CHECKSUMS";
+    #       my $call = $this -> callCmd($cmd);
+    #       my $status = $call->[0];
+    #       my $out = join("\n",@{$call->[1]});
+    #       $this->logMsg("I",
+    #           "Called $cmd exit status: <$status> output: $out"
+    #       );
+    #     }
+    # }
 
     return 0;
 }
