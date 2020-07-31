@@ -208,15 +208,15 @@ sub createRepositoryMetadata {
     $this->logMsg("I", "Executing command <$cmd>");
     $call = $this -> callCmd($cmd);
 
-    $cmd = "$this->{m_rezip} $masterpath ";
-    $this->logMsg("I", "Executing command <$cmd>");
-    $call = $this -> callCmd($cmd);
-    $status = $call->[0];
-    if($status) {
-        my $out = join("\n",@{$call->[1]});
-        $this->logMsg("E", "Called <$cmd> exit status: <$status> output: $out");
-        return 1;
-    }
+    # $cmd = "$this->{m_rezip} $masterpath ";
+    # $this->logMsg("I", "Executing command <$cmd>");
+    # $call = $this -> callCmd($cmd);
+    # $status = $call->[0];
+    # if($status) {
+    #     my $out = join("\n",@{$call->[1]});
+    #     $this->logMsg("E", "Called <$cmd> exit status: <$status> output: $out");
+    #     return 1;
+    # }
 
     if (-x "/usr/bin/openSUSE-appstream-process")
     {
