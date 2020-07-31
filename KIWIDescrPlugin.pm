@@ -170,7 +170,7 @@ sub createRepositoryMetadata {
     $cmd .= " --excludes=boot/*/*.rpm";
     $cmd .= " --checksum=sha256";
     $cmd .= " -d";
-    $cmd .= " -g comps-BaseOS.xml";
+    $cmd .= " -g ../comps-BaseOS.xml";
     $cmd .= " --error-exit-val"; # is not working with old createrepo
     foreach my $repoid (split(/\s+/, $repoids)) {
         $cmd .= " --repo=\"$repoid\"";
@@ -192,7 +192,7 @@ sub createRepositoryMetadata {
     $cmd .= " --content=\"pool\"" if $flavor =~ m{ftp}i || $flavor =~ m{pool}i;
 
     foreach my $p (@{$paths}) {
-        $cmd .= " $p";
+        $cmd .= " $p/BaseOS";
     }
     $cmd .= " 2>&1"; # verbose output
     $this->logMsg("I", "Executing command <$cmd>");
@@ -251,7 +251,7 @@ sub createRepositoryMetadata {
         }
     }
 
-    if (-e "$masterpath/repodata/repomd.xml") {
+    if (-e "$masterpath/BaseOS/repodata/repomd.xml") {
 
       $this->addLicenseFile($masterpath, "license");
       foreach my $product (@{$coll->{m_products}}) {
@@ -260,14 +260,14 @@ sub createRepositoryMetadata {
       }
 
       # detached signature
-      $cmd = "sign -d $masterpath/repodata/repomd.xml";
+      $cmd = "sign -d $masterpath/BaseOS/repodata/repomd.xml";
       $call = $this -> callCmd($cmd);
       $status = $call->[0];
       my $out = join("\n",@{$call->[1]});
       $this->logMsg("I", "Called $cmd exit status: <$status> output: $out");
 
       # detached pubkey
-      $cmd = "sign -p $masterpath/repodata/repomd.xml > $masterpath/repodata/repomd.xml.key";
+      $cmd = "sign -p $masterpath/BaseOS/repodata/repomd.xml > $masterpath/BaseOS/repodata/repomd.xml.key";
       $call = $this -> callCmd($cmd);
       $status = $call->[0];
       $out = join("\n",@{$call->[1]});
