@@ -171,7 +171,7 @@ sub addModularityList {
     my $out = join("\n",@{$call->[1]});
     $this->logMsg("I", "Called $cmd exit status: <$status> output: $out");
 
-    $cmd = "rm -f $masterpath/modules.yaml"
+    $cmd = "rm -f $masterpath/modules.yaml";
     $call = $this -> callCmd($cmd);
     $status = $call->[0];
     my $out = join("\n",@{$call->[1]});
