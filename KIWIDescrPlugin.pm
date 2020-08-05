@@ -163,7 +163,7 @@ sub addModularityList {
     $cmd = "$this->{m_modifyrepo}";
     $cmd .= " --unique-md-filenames";
     $cmd .= " --checksum=sha256";
-    $cmd .= " --mdtype=modules"
+    $cmd .= " --mdtype=modules";
     $cmd .= " $masterpath/modules.yaml $masterpath/BaseOS/repodata";
 
     $call = $this -> callCmd($cmd);
