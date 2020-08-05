@@ -151,6 +151,33 @@ sub addLicenseFile {
     }
 }
 
+sub addModularityList {
+    my @params = @_;
+    my $this        = $params[0];
+    my $masterpath  = $params[1];
+
+    my $call;
+    my $cmd;
+    my $status;
+
+    $cmd = "$this->{m_modifyrepo}";
+    $cmd .= " --unique-md-filenames";
+    $cmd .= " --checksum=sha256";
+    $cmd .= " --mdtype=modules"
+    $cmd .= " $masterpath/modules.yaml $masterpath/BaseOS/repodata";
+
+    $call = $this -> callCmd($cmd);
+    $status = $call->[0];
+    my $out = join("\n",@{$call->[1]});
+    $this->logMsg("I", "Called $cmd exit status: <$status> output: $out");
+
+    $cmd = "rm -f $masterpath/modules.yaml"
+    $call = $this -> callCmd($cmd);
+    $status = $call->[0];
+    my $out = join("\n",@{$call->[1]});
+    $this->logMsg("I", "Called $cmd exit status: <$status> output: $out");
+
+}
 sub createRepositoryMetadata {
     my @params = @_;
     my $this       = $params[0];
@@ -217,7 +244,10 @@ sub createRepositoryMetadata {
     #     $this->logMsg("E", "Called <$cmd> exit status: <$status> output: $out");
     #     return 1;
     # }
-
+    if (-e "$masterpath/modules.yaml")
+    {
+        $this->addModularityList($masterpath);
+    }
     if (-x "/usr/bin/openSUSE-appstream-process")
     {
         $cmd = "/usr/bin/openSUSE-appstream-process";
